@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<included>
+    <turboFilter class="cn.fcgyl.common.MySQLLogFilter">
+        <ShowCaller>true</ShowCaller>
+        <HideFieldsInSelect>true</HideFieldsInSelect>
+        <CallerPackageInclude>cn.fcgyl</CallerPackageInclude>
+    </turboFilter>
+    <!-- 按时间滚动的策略 -->
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/app/log/order-distributor/order-distributor.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/app/log/order-distributor/order-distributor.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- 保留 90天数据-->
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>[%date{yyyy-MM-dd HH:mm:ss.SSS}] [%-5level] [%thread] - %replace(%msg){"\n", "\\n"} %replace(%xException){"\n", "\\n"}%nopex%n</pattern>
+        </encoder>
+    </appender>
+    <!--ALL > TRACE > DEBUG > INFO > WARN > ERROR -->
+    <root level="INFO">
+        <appender-ref ref="file"/>
+    </root>
+</included>

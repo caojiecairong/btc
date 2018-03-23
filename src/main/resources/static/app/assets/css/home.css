@@ -1,0 +1,391 @@
+html {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+p {
+  margin: 0px;
+}
+body {
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+
+  margin: 0;
+  color: #333;
+  /*background-image: url(../images/background.png);*/
+}
+
+#head {
+  height: 80px;
+  background: -webkit-linear-gradient(
+    110deg,
+    #0c1e4b,
+    #143a9f
+  ); /* Safari 5.1 - 6.0 */
+  background: -o-linear-gradient(
+    110deg,
+    #0c1e4b,
+    #143a9f
+  ); /* Opera 11.1 - 12.0 */
+  background: -moz-linear-gradient(
+    110deg,
+    #0c1e4b,
+    #143a9f
+  ); /* Firefox 3.6 - 15 */
+  background: linear-gradient(
+    110deg,
+    #0c1e4b,
+    #143a9f
+  ); /* 标准的语法（必须放在最后） */
+  color: #fff;
+}
+
+#head img {
+  z-index: -1;
+  max-width: 100%;
+}
+
+#menu {
+  float: left;
+}
+
+#menu > div {
+  width: 100px;
+  float: left;
+}
+.menu-icon {
+  margin-left: auto;
+  margin-right: auto;
+}
+.fengyandingpan {
+  display: block;
+  background: no-repeat;
+  background-size: 32px 32px;
+  background-image: url(../images/fengyandingpan.svg);
+  width: 40px;
+  height: 37px;
+  margin-top: 12px;
+}
+.jiaoyiguanli {
+  display: block;
+  background: no-repeat;
+  background-size: 32px 32px;
+  background-image: url(../images/jiaoyiguanli.svg);
+  width: 40px;
+  height: 37px;
+  margin-top: 12px;
+}
+.zichanguanli {
+  display: block;
+  background: no-repeat;
+  background-size: 32px 32px;
+  background-image: url(../images/zichanguanli.svg);
+  width: 40px;
+  height: 37px;
+  margin-top: 12px;
+}
+.xitongshezhi {
+  display: block;
+  background: no-repeat;
+  background-size: 38px 38px;
+  background-image: url(../images/xitongshezhi.svg);
+  width: 40px;
+  height: 38px;
+  margin-top: 12px;
+}
+#menu p {
+  font-size: 0.8em;
+  height: 20px;
+  line-height: 20px;
+  overflow: hidden;
+  clear: both;
+  text-align: center;
+}
+
+.icon-file,
+.icon-btc,
+.icon-setting {
+  font-size: 28px;
+  margin-top: 5px;
+}
+.yonghutouxiang {
+  background-size: 34px 36px;
+  background-image: url(../images/yonghutouxiang.svg);
+  width: 34px;
+  height: 36px;
+  display: block;
+  float: left;
+  margin-right: 8px;
+}
+
+.user {
+  width: 150px;
+  padding-top: 22px;
+  float: right;
+  font-size: 0.8em;
+}
+
+.user > div {
+  float: left;
+}
+.user p {
+  height: 20px;
+  line-height: 20px;
+}
+
+#box {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+}
+
+.long-tab {
+  height: 40px;
+  width: 100%;
+  line-height: 40px;
+  background: inherit;
+  /*background-image: url(../images/navbg1.png);*/
+  background-color: #0b1e58;
+  box-sizing: border-box;
+  color: #fff;
+  border-top: 1px solid #2f4071;
+  padding-left: 10px;
+}
+/* 最大化按钮 */
+.quanping {
+  background-image: url(../images/quanping.svg);
+  background-size: 18px 18px;
+  margin-top: 12px;
+  margin-right: 15px;
+  float: right;
+  display: block;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+.quanping:hover {
+  background-image: url(../images/quanpin2.svg);
+  background-size: 18px 18px;
+  margin-top: 12px;
+  margin-right: 15px;
+  float: right;
+  display: block;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+#box table thead td {
+  background: -webkit-linear-gradient(#dce6ff, #fff);
+  background: linear-gradient(#dce6ff, #fff);
+  border-bottom: 1px solid #dce3f6;
+}
+#box table tbody td {
+  font-size: 13px;
+  border-bottom: 1px solid #dce3f6;
+  height: 26px !important;
+  line-height: 26px;
+  padding: 5px 0px;
+  overflow: hidden;
+}
+
+/*table*/
+/*{border-collapse:collapse;border:0px;}*/
+/*td*/
+/*{border:1px solid black; cellspacing:0;cellpadding:0;}*/
+
+/*#ZBS1 tbody .money-cell*/
+/*{*/
+/*font-size:13px;*/
+
+/*background-color:#ddd;*/
+/*height:26px !important;*/
+/*line-height:26px;*/
+/*padding:5px 5px;*/
+/*overflow:hidden;*/
+/*}*/
+
+/*#ZBS1 tbody .num_cell*/
+/*{font-size:13px;*/
+
+/*background-color:#ddd;*/
+/*height:26px !important;*/
+/*line-height:26px;*/
+/*padding:0px 0px;*/
+/*overflow:hidden;}*/
+
+.head-text {
+  width: 107px;
+  word-wrap: break-word;
+}
+
+.box-col {
+  flex-basis: 100%;
+  display: flex;
+  /* flex-wrap: wrap; */
+  justify-content: flex-start;
+}
+
+.small-table {
+  width: 25%;
+}
+
+.big-table {
+  width: 50%;
+  padding-right: 5px;
+}
+.big-table tbody td {
+  width: 10%;
+}
+
+thead,
+.row_head {
+  height: 33px;
+  /*background-image: url(../images/navbg2.png);*/
+}
+
+.head {
+  width: 49px;
+  height: 30px;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 12px;
+  text-align: left;
+  word-wrap: break-word;
+}
+.head1 {
+  padding-left: 20px;
+}
+
+/*tbody td {*/
+/*width: 70px;*/
+/*height: 36px;*/
+/*font-size: 12px;*/
+/*}*/
+
+tbody text {
+  /*width: 45px;*/
+  /*padding: 5px;*/
+  /*word-wrap: break-word;*/
+  /*text-align: center;*/
+}
+
+.flip-list-move {
+  transition: transform 0.5s;
+}
+
+.up-arrow {
+  background-image: url(../images/arrowup.png);
+  background-size: 10px 17px;
+  width: 15px;
+  height: 17px;
+  display: block;
+  background-position: 5px 0px;
+  background-repeat: no-repeat;
+}
+
+.down-arrow {
+  background-image: url(../images/arrowdown.png);
+  background-size: 10px 17px;
+  width: 15px;
+  height: 17px;
+  display: inline-block;
+  background-position: 5px 0px;
+  background-repeat: no-repeat;
+}
+
+.money-cell {
+  width: 85px;
+}
+
+.money-icon {
+  width: 26px;
+  height: 26px;
+  margin-right: 5px;
+  margin-left: 10px;
+  display: block;
+  float: left;
+}
+.money-cell span {
+  display: block;
+  float: left;
+}
+
+.slide-fade-enter-active {
+  animation: colorchange 2s linear;
+}
+.slide-fade-leave-active {
+  display: none;
+  transition: cubic-bezier 0s;
+}
+
+.slide-fade1-enter-active {
+  animation: colorchange 2s linear;
+}
+.slide-fade1-leave-active {
+  display: none;
+  transition: cubic-bezier 0s;
+}
+
+.slide-fade2-enter-active {
+  animation: colorchange 2s linear;
+}
+.slide-fade2-leave-active {
+  display: none;
+  transition: cubic-bezier 0s;
+}
+
+.slide-fade3-enter-active {
+  animation: colorchange 2s linear;
+}
+.slide-fade3-leave-active {
+  display: none;
+  transition: cubic-bezier 0s;
+}
+
+.slide-fade4-enter-active {
+  animation: colorchange 2s linear;
+}
+.slide-fade4-leave-active {
+  display: none;
+  transition: cubic-bezier 0s;
+}
+
+.slide-fade5-enter-active {
+  animation: colorchange 2s linear;
+}
+.slide-fade5-leave-active {
+  display: none;
+  transition: cubic-bezier 0s;
+}
+
+@keyframes colorchange {
+  0% {
+    font-size: 13px;
+  }
+  10% {
+    font-size: 13px;
+    color: #0047ff;
+    font-weight: bold;
+  }
+  90% {
+    font-size: 13px;
+    color: #0047ff;
+    font-weight: bold;
+  }
+  100% {
+    font-size: 13px;
+    color: #0047ff;
+    font-weight: bold;
+  }
+}
+
+.full-fade-enter-active {
+  transition: all 0.4s ease;
+}
+.full-fade-leave-active {
+  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.full-fade-enter, .full-fade-leave-to
+/* .slide-fade-leave-active for below version 2.1.8 */ {
+  opacity: 0;
+}

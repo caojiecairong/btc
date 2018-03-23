@@ -1,0 +1,64 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.6.RELEASE'
+    }
+    repositories {
+        maven {
+            url "http://192.168.8.5:8081/nexus/content/groups/public"
+        }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+apply plugin: 'idea'
+apply plugin: "maven"
+
+jar {
+    baseName = 'btc-trade'
+    version = '0.1.0-SNAPSHOT'
+}
+
+def fcUtilVer = System.getProperty("fc-utils.jar.version") ?: "0.1.0";
+fcUtilVer += "-SNAPSHOT"
+println("using fc utils jar version: $fcUtilVer")
+
+springBoot {
+    executable = true
+}
+
+repositories {
+    maven {
+        url "http://192.168.8.5:8081/nexus/content/groups/public"
+    }
+    maven {
+        url "http://maven.aliyun.com/nexus/content/groups/public"
+    }
+}
+
+dependencies {
+    compile('cn.fcgyl:fc-utils:' + "$fcUtilVer") { changing = true }
+//    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-data-redis'
+    compile 'org.springframework.boot:spring-boot-starter-actuator'
+    compile 'org.springframework.boot:spring-boot-starter-websocket'
+    compile "org.reflections:reflections:0.9.10"
+    compile "net.jodah:typetools:0.4.7"
+    compile "org.apache.commons:commons-lang3:3.3.2"
+    compile "com.alibaba:fastjson:1.2.29"
+//    compile "cn.fcgyl:mysqllog:1.0-SNAPSHOT"
+//    runtime 'mysql:mysql-connector-java'
+}
+
+
+sourceSets {
+    main {
+        java {
+            exclude '**/static/*'
+        }
+    }
+}

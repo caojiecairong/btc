@@ -1,0 +1,30 @@
+{
+  "name": "BTCTrade",
+  "version": "0.3.0",
+  "main": "./js/main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder",
+    "packager":
+      "electron-packager ./ BTCTrade --darwin --out ../outApp --version 1.8.2 --overwrite"
+  },
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "~1.8.2",
+    "electron-builder": "^20.5.1",
+    "electron-packager": "^11.1.0",
+    "electron-rebuild": "^1.7.3"
+  },
+  "build": {
+    "appId": "BTCTrade",
+    "mac": {
+      "category": "Finance"
+    },
+    "directories": {
+      "output": "../outApp"
+    }
+  },
+  "dependencies": {
+    "pako": "^1.0.6"
+  }
+}

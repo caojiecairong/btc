@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BTCTrade</title>
+    <link rel="stylesheet" href="../assets/css/icon.css" />
+    <link rel="stylesheet" href="../assets/css/home.css" />
+    <!-- Insert this line above script imports  -->
+    <script>
+        if (typeof module === 'object') {
+            window.module = module;
+            module = undefined;
+        }
+    </script>
+
+    <!-- normal script imports etc  -->
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.5.15/vue.js"></script>
+
+    <!-- Insert this line after script imports -->
+    <script>
+        if (window.module) module = window.module;
+    </script>
+</head>
+
+<body>
+    <div id="vue-container">
+        <div id="head">
+            <div id="menu">
+                <div>
+                    <span class="menu-icon fengyandingpan"></span>
+                    <p style="color:#6dd7ff;">蜂眼盯盘</p>
+                </div>
+                <div>
+                    <span class="menu-icon jiaoyiguanli"></span>
+                    <p>交易管理</p>
+                </div>
+                <div id="fydp">
+                    <span class="menu-icon zichanguanli"></span>
+                    <p>资产管理</p>
+                </div>
+                <div id="fydp">
+                    <span class="menu-icon xitongshezhi"></span>
+                    <p>系统设置</p>
+                </div>
+            </div>
+            <div class="user">
+                <span class="yonghutouxiang"></span>
+                <div>
+                    <p>Litao</p>
+                    <a>[&nbsp;安全退出&nbsp;]</a>
+                </div>
+
+            </div>
+        </div>
+        <div id="box">
+            <div class="long-tab">
+                <a class="head-text">ZB&nbsp;&nbsp;&&nbsp;&nbsp;Bithumb</a>
+                <span class="quanping" @click="displayAll = displayAll==='ZB'?'':'ZB'"></span>
+            </div>
+            <div class="box-col" v-if="displayAll ==='ZB' || displayAll === ''">
+                <table class="small-table" rules=none>
+                    <thead>
+                        <td class="head head1">币种</td>
+                        <td class="head">ZB卖1</td>
+                        <td class="head" style="width:81px">Bithumb买1</td>
+                        <td class="head">差价</td>
+                        <td class="head">变化</td>
+                    </thead>
+                    <tbody>
+                        <tr v-for="zb_s in ZB_SELL1_List" :key="zb_s[0]" is="transition-group" name="slide-fade" tag="tr" mode="in-out">
+                            <td :key="zb_s[0]" class="money-cell">
+                                <img class="money-icon" :src="'../assets/images/'+zb_s[0]+'.png'" />
+                                <span> {{zb_s[0]}}</span>
+                            </td>
+                            <td :key="zb_s[1].ZB_SELL" class="num_cell">
+                                {{zb_s[1].ZB_SELL}}
+                            </td>
+                            <td :key="zb_s[1].BITH_BUY" class="num_cell">
+                                {{zb_s[1].BITH_BUY}}
+                            </td>
+                            <td :key="zb_s[1].DIFF" class="num_cell">{{zb_s[1].DIFF.toFixed(2) + '%'}}</td>
+                            <td :key="zb_s[0] + 'ARROW'" class="num_cell">
+                                <span :class="zb_s[1].CHANGE?'up-arrow':'down-arrow'"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="small-table" rules=none>
+                    <thead>
+                        <td class="head head1">币种</td>
+                        <td class="head">ZB买1</td>
+                        <td class="head" style="width:81px">Bithumb卖1</td>
+                        <td class="head">差价</td>
+                        <td class="head">变化</td>
+                    </thead>
+                    <tbody>
+                        <tr v-for="zb_b in ZB_BUY1_List" :key="zb_b[0]" is="transition-group" name="slide-fade1" tag="tr" mode="in-out">
+                            <td class="money-cell" :key="zb_b[0]">
+                                <img class="money-icon" :src="'../assets/images/'+zb_b[0]+'.png'" />
+                                <span> {{zb_b[0]}}</span>
+                            </td>
+                            <td class="num_cell" :key="zb_b[1].ZB_BUY">{{zb_b[1].ZB_BUY}}</td>
+                            <td class="num_cell" :key="zb_b[1].BITH_SELL">{{zb_b[1].BITH_SELL}}</td>
+                            <td class="num_cell" :key="zb_b[1].DIFF">{{zb_b[1].DIFF.toFixed(2) + '%'}}</td>
+                            <td class="num_cell" :key="zb_b[0]+ 'ARROW'">
+                                <span :class="zb_b[1].CHANGE?'up-arrow':'down-arrow'"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="big-table" rules=none>
+                    <thead>
+                        <td></td>
+                        <td class="head" v-for="zb_b in ZB_BUY1_List" :key="zb_b[0]">{{zb_b[0]}}</td>
+                    </thead>
+                    <tbody>
+                        <tr v-for="zb_s in ZB_SELL1_List" is="transition-group" name="slide-fade2" tag="tr" mode="in-out">
+                            <td :key="zb_s[0]">{{zb_s[0]}}</td>
+                            <td v-for="zb_b in ZB_BUY1_List" :key="zb_s[1].DIFF-ZB_BUY1[zb_b[0]].DIFF">
+                                {{(zb_s[1].DIFF-ZB_BUY1[zb_b[0]].DIFF).toFixed(2)+ '%'}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <transition name="full-fade">
+                <div class="box-col" v-if="displayAll==='ZB'">
+                    <table class="small-table" rules=none>
+                        <thead>
+                            <td class="head head1">币种</td>
+                            <td class="head">ZB卖5</td>
+                            <td class="head" style="width:81px">Bithumb买5</td>
+                            <td class="head">差价</td>
+                            <td class="head">变化</td>
+                        </thead>
+                        <tbody>
+                            <tr v-for="zb_s in ZB_SELL5_List" :key="zb_s[0]" is="transition-group" name="slide-fade3" tag="tr" mode="in-out">
+                                <td :key="zb_s[0]" class="money-cell">
+                                    <img class="money-icon" :src="'../assets/images/'+zb_s[0]+'.png'" />
+                                    <span> {{zb_s[0]}}</span>
+                                </td>
+                                <td :key="zb_s[1].ZB_SELL" class="num_cell">
+                                    {{zb_s[1].ZB_SELL}}
+                                </td>
+                                <td :key="zb_s[1].BITH_BUY" class="num_cell">
+                                    {{zb_s[1].BITH_BUY}}
+                                </td>
+                                <td :key="zb_s[1].DIFF" class="num_cell">{{zb_s[1].DIFF.toFixed(2) + '%'}}</td>
+                                <td :key="zb_s[0] + 'ARROW'" class="num_cell">
+                                    <span :class="zb_s[1].CHANGE?'up-arrow':'down-arrow'"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="small-table" rules=none>
+                        <thead>
+                            <td class="head head1">币种</td>
+                            <td class="head">ZB买5</td>
+                            <td class="head" style="width:81px">Bithumb卖5</td>
+                            <td class="head">差价</td>
+                            <td class="head">变化</td>
+                        </thead>
+                        <tbody>
+                            <tr v-for="zb_b in ZB_BUY5_List" :key="zb_b[0]" is="transition-group" name="slide-fade4" tag="tr" mode="in-out">
+                                <td class="money-cell" :key="zb_b[0]">
+                                    <img class="money-icon" :src="'../assets/images/'+zb_b[0]+'.png'" />
+                                    <div> {{zb_b[0]}}</div>
+                                </td>
+                                <td class="num_cell" :key="zb_b[1].ZB_BUY">{{zb_b[1].ZB_BUY}}</td>
+                                <td class="num_cell" :key="zb_b[1].BITH_SELL">{{zb_b[1].BITH_SELL}}</td>
+                                <td class="num_cell" :key="zb_b[1].DIFF">{{zb_b[1].DIFF.toFixed(2) + '%'}}</td>
+                                <td class="num_cell" :key="zb_b[0]+ 'ARROW'">
+                                    <span :class="zb_b[1].CHANGE?'up-arrow':'down-arrow'"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="big-table" rules=none>
+                        <thead>
+                            <td></td>
+                            <td class="head" v-for="zb_b in ZB_BUY5_List" :key="zb_b[0]">{{zb_b[0]}}</td>
+                        </thead>
+                        <tbody>
+                            <tr v-for="zb_s in ZB_SELL5_List" :key="zb_s[0]" is="transition-group" name="slide-fade5" tag="tr" mode="in-out">
+                                <td :key="zb_s[0]">{{zb_s[0]}}</td>
+                                <td v-for="zb_b in ZB_BUY5_List" :key="zb_s[1].DIFF-ZB_BUY5[zb_b[0]].DIFF">
+                                    {{(zb_s[1].DIFF-ZB_BUY5[zb_b[0]].DIFF).toFixed(2)+ '%'}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </transition>
+            <div class="long-tab">
+                <a class="head-text">Houbi&nbsp;&nbsp;&&nbsp;&nbsp;Bithumb</a>
+                <span class="quanping" @click="displayAll = displayAll==='HB'?'':'HB'"></span>
+            </div>
+            <div class="box-col" v-if="displayAll ==='HB' || displayAll === ''">
+                <table class="small-table" rules=none>
+                    <thead>
+                        <td class="head head1">币种</td>
+                        <td class="head">HB卖1</td>
+                        <td class="head" style="width:81px">Bithumb买1</td>
+                        <td class="head">差价</td>
+                        <td class="head">变化</td>
+                    </thead>
+                    <tbody>
+                        <tr v-for="hb_s in HB_SELL1_List" :key="hb_s[0]" is="transition-group" name="slide-fade" tag="tr" mode="in-out">
+                            <td :key="hb_s[0]" class="money-cell">
+                                <img class="money-icon" :src="'../assets/images/'+hb_s[0]+'.png'" />
+                                <span> {{hb_s[0]}}</span>
+                            </td>
+                            <td :key="hb_s[1].HB_SELL" class="num_cell">
+                                {{hb_s[1].HB_SELL}}
+                            </td>
+                            <td :key="hb_s[1].BITH_BUY" class="num_cell">
+                                {{hb_s[1].BITH_BUY}}
+                            </td>
+                            <td :key="hb_s[1].DIFF" class="num_cell">{{hb_s[1].DIFF.toFixed(2) + '%'}}</td>
+                            <td :key="hb_s[0] + 'ARROW'" class="num_cell">
+                                <span :class="hb_s[1].CHANGE?'up-arrow':'down-arrow'"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="small-table" rules=none>
+                    <thead>
+                        <td class="head head1">币种</td>
+                        <td class="head">HB买1</td>
+                        <td class="head" style="width:81px">Bithumb卖1</td>
+                        <td class="head">差价</td>
+                        <td class="head">变化</td>
+                    </thead>
+                    <tbody>
+                        <tr v-for="hb_b in HB_BUY1_List" :key="hb_b[0]" is="transition-group" name="slide-fade1" tag="tr" mode="in-out">
+                            <td class="money-cell" :key="hb_b[0]">
+                                <img class="money-icon" :src="'../assets/images/'+hb_b[0]+'.png'" />
+                                <span> {{hb_b[0]}}</span>
+                            </td>
+                            <td class="num_cell" :key="hb_b[1].HB_BUY">{{hb_b[1].HB_BUY}}</td>
+                            <td class="num_cell" :key="hb_b[1].BITH_SELL">{{hb_b[1].BITH_SELL}}</td>
+                            <td class="num_cell" :key="hb_b[1].DIFF">{{hb_b[1].DIFF.toFixed(2) + '%'}}</td>
+                            <td class="num_cell" :key="hb_b[0]+ 'ARROW'">
+                                <span :class="hb_b[1].CHANGE?'up-arrow':'down-arrow'"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="big-table" rules=none>
+                    <thead>
+                        <td></td>
+                        <td class="head" v-for="zb_b in ZB_BUY1_List" :key="zb_b[0]">{{zb_b[0]}}</td>
+                    </thead>
+                    <tbody>
+                        <tr v-for="zb_s in HB_SELL1_List" is="transition-group" name="slide-fade2" tag="tr" mode="in-out">
+                            <td :key="zb_s[0]">{{zb_s[0]}}</td>
+                            <td v-for="zb_b in ZB_BUY1_List" :key="zb_s[1].DIFF-ZB_BUY1[zb_b[0]].DIFF">
+                                {{(zb_s[1].DIFF-ZB_BUY1[zb_b[0]].DIFF).toFixed(2)+ '%'}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <transition name="full-fade">
+                <div class="box-col" v-if="displayAll==='HB'">
+                    <table class="small-table" rules=none>
+                        <thead>
+                            <td class="head head1">币种</td>
+                            <td class="head">HB卖5</td>
+                            <td class="head" style="width:81px">Bithumb买5</td>
+                            <td class="head">差价</td>
+                            <td class="head">变化</td>
+                        </thead>
+                        <tbody>
+                            <tr v-for="hb_s in HB_SELL5_List" :key="hb_s[0]" is="transition-group" name="slide-fade3" tag="tr" mode="in-out">
+                                <td :key="hb_s[0]" class="money-cell">
+                                    <img class="money-icon" :src="'../assets/images/'+hb_s[0]+'.png'" />
+                                    <span> {{hb_s[0]}}</span>
+                                </td>
+                                <td :key="hb_s[1].HB_SELL" class="num_cell">
+                                    {{hb_s[1].HB_SELL}}
+                                </td>
+                                <td :key="hb_s[1].BITH_BUY" class="num_cell">
+                                    {{hb_s[1].BITH_BUY}}
+                                </td>
+                                <td :key="hb_s[1].DIFF" class="num_cell">{{hb_s[1].DIFF.toFixed(2) + '%'}}</td>
+                                <td :key="hb_s[0] + 'ARROW'" class="num_cell">
+                                    <span :class="hb_s[1].CHANGE?'up-arrow':'down-arrow'"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="small-table" rules=none>
+                        <thead>
+                            <td class="head head1">币种</td>
+                            <td class="head">HB买5</td>
+                            <td class="head" style="width:81px">Bithumb卖5</td>
+                            <td class="head">差价</td>
+                            <td class="head">变化</td>
+                        </thead>
+                        <tbody>
+                            <tr v-for="hb_b in HB_BUY5_List" :key="hb_b[0]" is="transition-group" name="slide-fade4" tag="tr" mode="in-out">
+                                <td class="money-cell" :key="hb_b[0]">
+                                    <img class="money-icon" :src="'../assets/images/'+hb_b[0]+'.png'" />
+                                    <div> {{hb_b[0]}}</div>
+                                </td>
+                                <td class="num_cell" :key="hb_b[1].HB_BUY">{{hb_b[1].HB_BUY}}</td>
+                                <td class="num_cell" :key="hb_b[1].BITH_SELL">{{hb_b[1].BITH_SELL}}</td>
+                                <td class="num_cell" :key="hb_b[1].DIFF">{{hb_b[1].DIFF.toFixed(2) + '%'}}</td>
+                                <td class="num_cell" :key="hb_b[0]+ 'ARROW'">
+                                    <span :class="hb_b[1].CHANGE?'up-arrow':'down-arrow'"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="big-table" rules=none>
+                        <thead>
+                            <td></td>
+                            <td class="head" v-for="hb_b in HB_BUY5_List" :key="hb_b[0]">{{hb_b[0]}}</td>
+                        </thead>
+                        <tbody>
+                            <tr v-for="zb_s in HB_SELL5_List" :key="zb_s[0]" is="transition-group" name="slide-fade5" tag="tr" mode="in-out">
+                                <td :key="zb_s[0]">{{zb_s[0]}}</td>
+                                <td v-for="hb_b in HB_BUY5_List" :key="zb_s[1].DIFF-HB_BUY5[hb_b[0]].DIFF">
+                                    {{(zb_s[1].DIFF-HB_BUY5[hb_b[0]].DIFF).toFixed(2)+ '%'}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </transition>
+        </div>
+    </div>
+    </div>
+
+    <script src="../js/btc.js"></script>
+</body>
+
+</html>
